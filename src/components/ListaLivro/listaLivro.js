@@ -28,13 +28,13 @@ import {
 } from "firebase/auth";
 
 function ListaLivro() {
-  // Estado para armazenar o título do post.
+  // Estado para armazenar o título do livro.
   const [descricao, setDescricao] = useState("");
-  // Estado para armazenar o autor do post.
+  // Estado para armazenar o autor do livro.
   const [autor, setAutor] = useState("");
-  // Estado para armazenar o ID do post a ser editado ou excluído.
+  // Estado para armazenar o ID do livro a ser editado ou excluído.
   const [titulo, setTitulo] = useState("");
-  // Estado para armazenar o ID do post a ser editado ou excluído.
+  // Estado para armazenar o ID do livro a ser editado ou excluído.
   const [idLivro, setIdLivro] = useState("");
   //Lista dos livros
   const [livros, setLivros] = useState([]);
@@ -54,7 +54,7 @@ function ListaLivro() {
     }
   }
 
-  // Função para excluir um post do Firestore.
+  // Função para excluir um livro\ do Firestore.
   async function excluirLivro(id) {
     const docRef = doc(db, "livros", id);
     await deleteDoc(docRef).then(() => {
@@ -64,7 +64,7 @@ function ListaLivro() {
 
   // Efeito que carrega os livros do Firestore sempre que o componente é montado.
   useEffect(() => {
-    async function loadPosts() {
+    async function loadLivros() {
       const unsub = onSnapshot(collection(db, "livros"), (snapshot) => {
         let listaLivros = [];
         snapshot.forEach((doc) => {
@@ -78,7 +78,7 @@ function ListaLivro() {
         setLivros(listaLivros);
       });
     }
-    loadPosts();
+    loadLivros();
   }, []);
 
   async function handleAdd() {
@@ -98,7 +98,7 @@ function ListaLivro() {
       });
   }
 
-  // Função para buscar todos os posts do Firestore.
+  // Função para buscar todos os livros do Firestore.
   async function buscarLivro() {
     const livrosRef = collection(db, "livros");
     await getDocs(livrosRef)
@@ -180,8 +180,8 @@ function ListaLivro() {
         />
         <div className="alignButtons">
           <button onClick={handleAdd}>Cadastrar</button>
-          <button onClick={buscarLivro}>Buscar post</button> <br />
-          <button onClick={editarLivro}>Atualizar post</button>
+          <button onClick={buscarLivro}>Buscar livro</button> <br />
+          <button onClick={editarLivro}>Atualizar livro</button>
         </div>
       </div>
       <h2>LIVROS</h2>
